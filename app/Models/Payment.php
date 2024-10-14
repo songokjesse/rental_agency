@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'lease_id',
+        'amount',
+        'payment_date',
+        'payment_method',
+    ];
+
+    public function lease()
+    {
+        return $this->belongsTo(Lease::class);
+    }
 }

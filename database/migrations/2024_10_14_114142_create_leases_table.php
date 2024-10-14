@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('leases', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('unit_id');
+            $table->foreignId('tenant_id');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->decimal('rent_amount', 10, 2);
+            $table->decimal('security_deposit', 10, 2);
             $table->timestamps();
         });
     }

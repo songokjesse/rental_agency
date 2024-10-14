@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('address');
+            $table->foreignId('landlord_id')->constrained()->OnDelete('cascade');
+            $table->string('property_type');
+            $table->string('estate');
+            $table->string('town');
+            $table->string('county');
             $table->timestamps();
         });
     }

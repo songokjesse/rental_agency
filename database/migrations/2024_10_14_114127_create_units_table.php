@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('property_id');
+            $table->string('unit_number');
+            $table->integer('bedrooms');
+            $table->integer('bathrooms');
+            $table->decimal('rent_amount', 10, 2);
             $table->timestamps();
         });
     }

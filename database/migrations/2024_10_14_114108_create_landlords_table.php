@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('landlords', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
+            $table->string('company_name');
+            $table->string('phone_number');
             $table->timestamps();
         });
     }
