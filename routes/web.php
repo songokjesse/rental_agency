@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LandlordController;
+use App\Livewire\Landlord\LandlordList;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,6 +16,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/', 'dashboard')
         ->name('dashboard');
 
-    Route::get('/landlords', [LandlordController::class, 'index'])->name('landlords.index');
+    Route::get('/landlords',LandlordList::class)->name('landlords.index');
 });
 require __DIR__ . '/auth.php';
