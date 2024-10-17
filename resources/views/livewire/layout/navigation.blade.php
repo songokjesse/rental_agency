@@ -36,6 +36,9 @@ new class extends Component
                     <x-nav-link :href="route('landlords.index')" :active="request()->routeIs('landlords.index')" wire:navigate>
                         {{ __('Landlords') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('properties.index')" :active="request()->routeIs('properties.index')" wire:navigate>
+                        {{ __('Property') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -86,6 +89,12 @@ new class extends Component
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('landlords.index')" :active="request()->routeIs('landlords.index')" wire:navigate>
+                {{ __('Landlords') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('properties.index')" :active="request()->routeIs('properties.index')" wire:navigate>
+                {{ __('Property') }}
             </x-responsive-nav-link>
         </div>
 

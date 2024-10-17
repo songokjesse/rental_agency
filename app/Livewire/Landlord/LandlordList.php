@@ -18,9 +18,6 @@ class LandlordList extends Component
     #[Layout('layouts.app')]
     public function render(): View|Factory|Application
     {
-//        $landlords = Landlord::where('company_name', 'like', '%' . $this->searchTerm . '%')
-//            ->orWhere('phone_number', 'like', '%' . $this->searchTerm . '%')
-//            ->paginate(25);
         $landlords = Landlord::with('user')
             ->where(function ($query) {
                 $query->whereHas('user', function ($subQuery) {
