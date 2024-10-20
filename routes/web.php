@@ -4,6 +4,10 @@ use App\Livewire\Landlord\LandlordForm;
 use App\Livewire\Landlord\LandlordList;
 use App\Livewire\Property\PropertyForm;
 use App\Livewire\Property\PropertyList;
+use App\Livewire\Tenant\LeaseForm;
+use App\Livewire\Tenant\LeaseList;
+use App\Livewire\Tenant\TenantForm;
+use App\Livewire\Tenant\TenantList;
 use App\Livewire\Units\UnitForm;
 use App\Livewire\Units\UnitList;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +35,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/properties/{propertyId}/units', UnitList::class)->name('units.list');
     Route::get('/properties/{propertyId}/units/create', UnitForm::class)->name('units.create');
     Route::get('/properties/{propertyId}/units/{unitId}/edit', UnitForm::class)->name('units.edit');
+
+    Route::get('/tenants', TenantList::class)->name('tenants.index');
+    Route::get('/tenants/create', TenantForm::class)->name('tenants.create');
+    Route::get('/tenants/{id}/edit', TenantForm::class)->name('tenants.edit');
+    Route::get('/tenants/{tenantId}/leases', LeaseList::class)->name('leases.list');
+    Route::get('/tenants/{tenantId}/leases/create', LeaseForm::class)->name('leases.create');
+    Route::get('/tenants/{tenantId}/leases/{leaseId}/edit', LeaseForm::class)->name('leases.edit');
 });
 require __DIR__ . '/auth.php';
