@@ -10,37 +10,63 @@ use App\Livewire\Tenant\TenantForm;
 use App\Livewire\Tenant\TenantList;
 use App\Livewire\Units\UnitForm;
 use App\Livewire\Units\UnitList;
+use App\Livewire\Utility\UnitUtilities;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Route::view("profile", "profile")
+    ->middleware(["auth"])
+    ->name("profile");
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+Route::middleware(["auth", "verified"])->group(function () {
+    Route::view("dashboard", "dashboard")->name("dashboard");
 
-Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view("/", "dashboard");
 
-    Route::view('dashboard', 'dashboard')
-        ->name('dashboard');
+    Route::get("/landlords", LandlordList::class)->name("landlords.index");
+    Route::get("/landlords/create", LandlordForm::class)->name(
+        "landlords.create"
+    );
+    Route::get("/landlords/{id}/edit", LandlordForm::class)->name(
+        "landlords.edit"
+    );
 
-    Route::view('/', 'dashboard')
-        ->name('dashboard');
+    Route::get("/properties", PropertyList::class)->name("properties.index");
+    Route::get("/properties/create", PropertyForm::class)->name(
+        "properties.create"
+    );
+    Route::get("/properties/{id}/edit", PropertyForm::class)->name(
+        "properties.edit"
+    );
+    Route::get("/properties/{propertyId}/units", UnitList::class)->name(
+        "units.list"
+    );
+    Route::get("/properties/{propertyId}/units/create", UnitForm::class)->name(
+        "units.create"
+    );
+    Route::get(
+        "/properties/{propertyId}/units/{unitId}/edit",
+        UnitForm::class
+    )->name("units.edit");
 
-    Route::get('/landlords',LandlordList::class)->name('landlords.index');
-    Route::get('/landlords/create', LandlordForm::class)->name('landlords.create');
-    Route::get('/landlords/{id}/edit', LandlordForm::class)->name('landlords.edit');
+    Route::get("/tenants", TenantList::class)->name("tenants.index");
+    Route::get("/tenants/create", TenantForm::class)->name("tenants.create");
+    Route::get("/tenants/{id}/edit", TenantForm::class)->name("tenants.edit");
+    Route::get("/tenants/{tenantId}/leases", LeaseList::class)->name(
+        "leases.list"
+    );
+    Route::get("/tenants/{tenantId}/leases/create", LeaseForm::class)->name(
+        "leases.create"
+    );
+    Route::get(
+        "/tenants/{tenantId}/leases/{leaseId}/edit",
+        LeaseForm::class
+    )->name("leases.edit");
 
-    Route::get('/properties', PropertyList::class)->name('properties.index');
-    Route::get('/properties/create', PropertyForm::class)->name('properties.create');
-    Route::get('/properties/{id}/edit', PropertyForm::class)->name('properties.edit');
-    Route::get('/properties/{propertyId}/units', UnitList::class)->name('units.list');
-    Route::get('/properties/{propertyId}/units/create', UnitForm::class)->name('units.create');
-    Route::get('/properties/{propertyId}/units/{unitId}/edit', UnitForm::class)->name('units.edit');
-
-    Route::get('/tenants', TenantList::class)->name('tenants.index');
-    Route::get('/tenants/create', TenantForm::class)->name('tenants.create');
-    Route::get('/tenants/{id}/edit', TenantForm::class)->name('tenants.edit');
-    Route::get('/tenants/{tenantId}/leases', LeaseList::class)->name('leases.list');
-    Route::get('/tenants/{tenantId}/leases/create', LeaseForm::class)->name('leases.create');
-    Route::get('/tenants/{tenantId}/leases/{leaseId}/edit', LeaseForm::class)->name('leases.edit');
+    Route::get("/units/{unit}/utilities", UnitUtilities::class)->name("unit.utilities");
+//    Route::get("/utilities", function (){
+//        dd(Auth::user());
+//    }
+//    )->name("unit.utilities");
 });
-require __DIR__ . '/auth.php';
+require __DIR__ . "/auth.php";

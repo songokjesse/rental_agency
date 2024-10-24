@@ -1,10 +1,11 @@
 <div>
-    {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
-    <x-slot name="header">
+    
+     <?php $__env->slot('header', null, []); ?> 
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{'Tenants' }}
+            <?php echo e('Tenants'); ?>
+
         </h2>
-    </x-slot>
+     <?php $__env->endSlot(); ?>
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
@@ -12,15 +13,16 @@
 
         <div class="mb-4 flex justify-between items-center">
             <input wire:model.live="search" type="text" placeholder="Search tenants..." class="px-4 py-2 border rounded-md">
-            <a href="{{ route('tenants.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <a href="<?php echo e(route('tenants.create')); ?>" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Add New Tenant
             </a>
         </div>
-                    @if (session()->has('message'))
+                    <!--[if BLOCK]><![endif]--><?php if(session()->has('message')): ?>
                         <div class="px-4 py-2 mb-4 text-sm text-green-700 bg-green-100 rounded-lg">
-                            {{ session('message') }}
+                            <?php echo e(session('message')); ?>
+
                         </div>
-                    @endif
+                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
         <table class="min-w-full bg-white">
             <thead>
@@ -30,40 +32,41 @@
                 <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Phone Number</th>
                 <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">ID Number</th>
                 <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">KRA PIN</th>
-{{--                <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Emergency Contact</th>--}}
+
                 <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Lease</th>
                 <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
             </tr>
             </thead>
             <tbody>
-            @foreach ($tenants as $tenant)
+            <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $tenants; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tenant): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">{{ $tenant->name }}</td>
-                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">{{ $tenant->email }}</td>
-                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">{{ $tenant->phone_number }}</td>
-                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">{{ $tenant->id_number }}</td>
-                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">{{ $tenant->kra_pin }}</td>
-{{--                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">{{ $tenant->emergency_contact }}</td>--}}
+                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500"><?php echo e($tenant->name); ?></td>
+                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500"><?php echo e($tenant->email); ?></td>
+                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500"><?php echo e($tenant->phone_number); ?></td>
+                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500"><?php echo e($tenant->id_number); ?></td>
+                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500"><?php echo e($tenant->kra_pin); ?></td>
+
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                        <a href="{{ route('leases.list', $tenant->id) }}" class="text-blue-600 hover:text-blue-900">
+                        <a href="<?php echo e(route('leases.list', $tenant->id)); ?>" class="text-blue-600 hover:text-blue-900">
                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                 Leases
                             </span>
                         </a>
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                        <a href="{{ route('tenants.edit', $tenant->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2">Edit</a>
-                        <button wire:click="confirmTenantDeletion({{ $tenant->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2">Delete</button>
+                        <a href="<?php echo e(route('tenants.edit', $tenant->id)); ?>" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2">Edit</a>
+                        <button wire:click="confirmTenantDeletion(<?php echo e($tenant->id); ?>)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2">Delete</button>
                     </td>
                 </tr>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
             </tbody>
         </table>
 
         <div class="mt-4">
-            {{ $tenants->links() }}
+            <?php echo e($tenants->links()); ?>
+
         </div>
-                    @if($confirmingTenantDeletion)
+                    <!--[if BLOCK]><![endif]--><?php if($confirmingTenantDeletion): ?>
                         <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
                             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                                 <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -99,7 +102,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
 
 
@@ -109,4 +112,4 @@
     </div>
         </div>
     </div>
-</div>
+</div><?php /**PATH /home/codelab/Desktop/Projects/LaravelGarage/RentalAgency/resources/views/livewire/tenant/tenant-list.blade.php ENDPATH**/ ?>

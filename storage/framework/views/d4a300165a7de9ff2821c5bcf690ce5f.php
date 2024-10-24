@@ -1,9 +1,10 @@
 <div>
-    <x-slot name="header">
+     <?php $__env->slot('header', null, []); ?> 
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            Lease List for {{ $tenant->name }}
+            Lease List for <?php echo e($tenant->name); ?>
+
         </h2>
-    </x-slot>
+     <?php $__env->endSlot(); ?>
 
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -11,15 +12,16 @@
                 <div class="p-6 bg-white border-b border-gray-200">
 
                     <div class="mb-4">
-                        <a href="{{ route('leases.create', $tenant->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <a href="<?php echo e(route('leases.create', $tenant->id)); ?>" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Add New Lease
                         </a>
                     </div>
-                    @if (session()->has('message'))
+                    <!--[if BLOCK]><![endif]--><?php if(session()->has('message')): ?>
                         <div class="px-4 py-2 mb-4 text-sm text-green-700 bg-green-100 rounded-lg">
-                            {{ session('message') }}
+                            <?php echo e(session('message')); ?>
+
                         </div>
-                    @endif
+                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
                     <table class="min-w-full bg-white">
                         <thead>
@@ -34,30 +36,32 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($leases as $lease)
+                        <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $leases; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lease): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">{{$lease->tenant->name}}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">{{ $lease->unit->unit_number }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">{{ $lease->start_date }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">{{ $lease->rent_amount }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">{{ $lease->security_deposit }}</td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500"><?php echo e($lease->tenant->name); ?></td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500"><?php echo e($lease->unit->unit_number); ?></td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500"><?php echo e($lease->start_date); ?></td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500"><?php echo e($lease->rent_amount); ?></td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500"><?php echo e($lease->security_deposit); ?></td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $lease->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                            {{ $lease->is_active ? 'Active' : 'Inactive' }}
+                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <?php echo e($lease->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'); ?>">
+                            <?php echo e($lease->is_active ? 'Active' : 'Inactive'); ?>
+
                         </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                                    <a href="{{ route('leases.edit', ['tenantId' => $tenantId,   'leaseId' => $lease->id]) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>                                </td>
+                                    <a href="<?php echo e(route('leases.edit', ['tenantId' => $tenantId,   'leaseId' => $lease->id])); ?>" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>                                </td>
                             </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                         </tbody>
                     </table>
 
                     <div class="mt-4">
-                        {{ $leases->links() }}
+                        <?php echo e($leases->links()); ?>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div><?php /**PATH /home/codelab/Desktop/Projects/LaravelGarage/RentalAgency/resources/views/livewire/tenant/lease-list.blade.php ENDPATH**/ ?>

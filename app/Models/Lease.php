@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Lease extends Model
 {
@@ -19,7 +20,14 @@ class Lease extends Model
         'is_active'
     ];
 
-    public function unit()
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'is_active' => 'boolean',
+    ];
+
+
+    public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class);
     }

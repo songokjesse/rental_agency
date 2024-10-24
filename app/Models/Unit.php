@@ -12,16 +12,16 @@ class Unit extends Model
     use HasFactory;
 
     protected $fillable = [
-        'property_id',
-        'unit_number',
-        'bedrooms',
-        'bathrooms',
-        'rent_amount',
-        'status'
+        "property_id",
+        "unit_number",
+        "bedrooms",
+        "bathrooms",
+        "rent_amount",
+        "status",
     ];
 
     protected $casts = [
-        'status' => UnitStatus::class,
+        "status" => UnitStatus::class,
     ];
     public function property(): BelongsTo
     {
@@ -31,5 +31,9 @@ class Unit extends Model
     public function leases()
     {
         return $this->hasMany(Lease::class);
+    }
+    public function utilities()
+    {
+        return $this->hasMany(Utility::class);
     }
 }
