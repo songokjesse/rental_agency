@@ -30,6 +30,7 @@
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Rent Amount</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Security Deposit</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Payments</th>
                             <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
                         </tr>
                         </thead>
@@ -45,6 +46,11 @@
                                      <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $lease->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                             {{ $lease->is_active ? 'Active' : 'Inactive' }}
                         </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
+                                <a href="{{ route('lease.payments', $lease) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                    Manage Payments
+                                </a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
                                     <a href="{{ route('leases.edit', ['tenantId' => $tenantId,   'leaseId' => $lease->id]) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>                                </td>

@@ -2,6 +2,7 @@
 
 use App\Livewire\Landlord\LandlordForm;
 use App\Livewire\Landlord\LandlordList;
+use App\Livewire\Payment\PaymentComponent;
 use App\Livewire\Property\PropertyForm;
 use App\Livewire\Property\PropertyList;
 use App\Livewire\Tenant\LeaseForm;
@@ -11,7 +12,6 @@ use App\Livewire\Tenant\TenantList;
 use App\Livewire\Units\UnitForm;
 use App\Livewire\Units\UnitList;
 use App\Livewire\Utility\UnitUtilities;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::view("profile", "profile")
@@ -63,10 +63,12 @@ Route::middleware(["auth", "verified"])->group(function () {
         LeaseForm::class
     )->name("leases.edit");
 
-    Route::get("/units/{unit}/utilities", UnitUtilities::class)->name("unit.utilities");
-//    Route::get("/utilities", function (){
-//        dd(Auth::user());
-//    }
-//    )->name("unit.utilities");
+    Route::get("/units/{unit}/utilities", UnitUtilities::class)->name(
+        "unit.utilities"
+    );
+
+    Route::get("/leases/{lease}/payments", PaymentComponent::class)->name(
+        "lease.payments"
+    );
 });
 require __DIR__ . "/auth.php";

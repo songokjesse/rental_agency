@@ -14,6 +14,12 @@ class Payment extends Model
         'amount',
         'payment_date',
         'payment_method',
+        'status',
+        'notes',
+    ];
+
+    protected $casts = [
+        'payment_date' => 'date',
     ];
 
     public function lease()
